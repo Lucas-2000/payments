@@ -10,7 +10,7 @@ This is a useful site for creating custom payments to send to a creditor. Is pos
   - Node.js;
   - Typescript;
   - Express;
-  - Prisma ORM
+  - Prisma ORM;
   - PostgreSQL;
 
 ## How to use?
