@@ -7,11 +7,11 @@ This is a useful site for creating custom payments to send to a creditor. Is pos
 ## Tecnologies
 
 - Backend:
-  ** Node.js;
-  ** Typescript;
-  ** Express;
-  ** Prisma ORM
-  \*\* PostgreSQL;
+  - Node.js;
+  - Typescript;
+  - Express;
+  - Prisma ORM
+  - PostgreSQL;
 
 ## How to use?
 
