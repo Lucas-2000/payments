@@ -10,11 +10,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
-  id         String   @id @default(cuid())
+model User {
+  id         String   @id @default(uuid())
   first_name String
   last_name  String
-  birth_date DateTime
+  birth_date String
   cep        String
   address    String
   city       String
