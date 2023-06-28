@@ -25,7 +25,6 @@ model User {
   updated_at    DateTime       @updatedAt
   refresh_token RefreshToken[]
   customers     Customers[]
-  companies     Companies[]
   invoices      Invoices[]
 
   @@map("users")
@@ -41,44 +40,22 @@ model RefreshToken {
 }
 
 model Customers {
-  id          String     @id @default(uuid())
-  first_name  String
-  last_name   String
-  cep         String
-  address     String
-  city        String
-  uf          String
-  email       String
-  phone       String
-  created_at  DateTime   @default(now())
-  updated_at  DateTime   @updatedAt
-  invoices    Invoices[]
-  user        User       @relation(fields: [userId], references: [id])
-  userId      String
-  companies   Companies  @relation(fields: [companiesId], references: [id])
-  companiesId String
-
-  @@map("customers")
-}
-
-model Companies {
-  id         String      @id @default(uuid())
-  cnpj       String
-  name       String
-  segment    String
+  id         String     @id @default(uuid())
+  first_name String
+  last_name  String
   cep        String
   address    String
   city       String
   uf         String
+  email      String
   phone      String
-  created_at DateTime    @default(now())
-  updated_at DateTime    @updatedAt
-  customers  Customers[]
+  created_at DateTime   @default(now())
+  updated_at DateTime   @updatedAt
   invoices   Invoices[]
-  User       User        @relation(fields: [userId], references: [id])
-  userId     String
+  user       User?      @relation(fields: [userId], references: [id])
+  userId     String?
 
-  @@map("companies")
+  @@map("customers")
 }
 
 model Invoices {
@@ -89,12 +66,10 @@ model Invoices {
   due_date       String
   is_paid        Boolean
 
-  user        User      @relation(fields: [userId], references: [id])
-  userId      String
-  customers   Customers @relation(fields: [customersId], references: [id])
-  customersId String
-  companies   Companies @relation(fields: [companiesId], references: [id])
-  companiesId String
+  user       User?      @relation(fields: [userId], references: [id])
+  userId     String?
+  customers  Customers? @relation(fields: [customerId], references: [id])
+  customerId String?
 
   @@map("invoices")
 }
