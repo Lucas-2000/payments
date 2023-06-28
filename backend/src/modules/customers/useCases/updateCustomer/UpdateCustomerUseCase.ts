@@ -15,14 +15,14 @@ export class UpdateCustomerUseCase {
     email,
     phone,
   }: UpdateCustomerDTO): Promise<Customers> {
-    const userExists = await prisma.customers.findUnique({
+    const customerExists = await prisma.customers.findUnique({
       where: {
         id,
       },
     });
 
-    if (!userExists) {
-      throw new AppError("User not found!");
+    if (!customerExists) {
+      throw new AppError("Customer not found!");
     }
 
     const customerUpdated = await prisma.customers.update({

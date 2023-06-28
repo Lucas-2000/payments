@@ -5,14 +5,14 @@ import { GetCustomerByIdDTO } from "../../dtos/GetCustomerByIdDTO";
 
 export class GetCustomerByIdUseCase {
   async execute({ id }: GetCustomerByIdDTO): Promise<Customers> {
-    const user = await prisma.customers.findUnique({
+    const customer = await prisma.customers.findUnique({
       where: { id },
     });
 
-    if (!user) {
-      throw new AppError("User not found!");
+    if (!customer) {
+      throw new AppError("Customer not found!");
     }
 
-    return user;
+    return customer;
   }
 }
