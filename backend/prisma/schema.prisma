@@ -24,6 +24,8 @@ model User {
   created_at    DateTime       @default(now())
   updated_at    DateTime       @updatedAt
   refresh_token RefreshToken[]
+  customers     Customers[]
+  invoices      Invoices[]
 
   @@map("users")
 }
@@ -35,4 +37,61 @@ model RefreshToken {
   userId    String
 
   @@map("refresh_token")
+}
+
+model Customers {
+  id         String      @id @default(uuid())
+  first_name String
+  last_name  String
+  cep        String
+  address    String
+  city       String
+  uf         String
+  email      String
+  phone      String
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
+  User       User?       @relation(fields: [userId], references: [id])
+  userId     String?
+  companies  Companies[]
+  Invoices   Invoices[]
+
+  @@map("customers")
+}
+
+model Companies {
+  id          String     @id @default(uuid())
+  cnpj        String
+  name        String
+  segment     String
+  cep         String
+  address     String
+  city        String
+  uf          String
+  phone       String
+  created_at  DateTime   @default(now())
+  updated_at  DateTime   @updatedAt
+  Customers   Customers? @relation(fields: [customersId], references: [id])
+  customersId String?
+  Invoices    Invoices[]
+
+  @@map("companies")
+}
+
+model Invoices {
+  id             String  @id @default(uuid())
+  description    String
+  value          Decimal
+  payment_method String
+  due_date       String
+  is_paid        Boolean
+
+  User        User?     @relation(fields: [userId], references: [id])
+  userId      String?
+  customers   Customers @relation(fields: [customersId], references: [id])
+  customersId String
+  companies   Companies @relation(fields: [companiesId], references: [id])
+  companiesId String
+
+  @@map("invoices")
 }
