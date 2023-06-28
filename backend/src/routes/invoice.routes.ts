@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { CreateInvoiceController } from "../modules/invoices/useCases/createInvoices/CreateInvoiceController";
 import { DeleteInvoiceController } from "../modules/invoices/useCases/deleteInvoice/DeleteInvoiceController";
 import { GetAllInvoicesController } from "../modules/invoices/useCases/getAllInvoices/GetAllInvoicesController";
@@ -13,10 +14,18 @@ const deleteInvoiceController = new DeleteInvoiceController();
 
 const invoiceRoutes = Router();
 
-invoiceRoutes.post("/", createInvoiceController.handle);
-invoiceRoutes.get("/", getAllInvoicesController.handle);
-invoiceRoutes.get("/:id", getInvoicesByIdController.handle);
-invoiceRoutes.put("/:id", updateInvoiceController.handle);
-invoiceRoutes.delete("/:id", deleteInvoiceController.handle);
+invoiceRoutes.post("/", ensureAuthenticated, createInvoiceController.handle);
+invoiceRoutes.get("/", ensureAuthenticated, getAllInvoicesController.handle);
+invoiceRoutes.get(
+  "/:id",
+  ensureAuthenticated,
+  getInvoicesByIdController.handle
+);
+invoiceRoutes.put("/:id", ensureAuthenticated, updateInvoiceController.handle);
+invoiceRoutes.delete(
+  "/:id",
+  ensureAuthenticated,
+  deleteInvoiceController.handle
+);
 
 export { invoiceRoutes };
