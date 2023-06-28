@@ -11,18 +11,28 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  first_name String
-  last_name  String
-  birth_date String
-  cep        String
-  address    String
-  city       String
-  uf         String
-  email      String   @unique
-  password   String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id            String         @id @default(uuid())
+  first_name    String
+  last_name     String
+  birth_date    String
+  cep           String
+  address       String
+  city          String
+  uf            String
+  email         String         @unique
+  password      String
+  created_at    DateTime       @default(now())
+  updated_at    DateTime       @updatedAt
+  refresh_token RefreshToken[]
 
   @@map("users")
+}
+
+model RefreshToken {
+  id        String @id @default(uuid())
+  expiresIn Int
+  user      User   @relation(fields: [userId], references: [id])
+  userId    String
+
+  @@map("refresh_token")
 }
