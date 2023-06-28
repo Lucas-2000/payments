@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { CreateCustomerController } from "./../modules/customers/useCases/createCustomer/CreateCustomerController";
-import { GetAllCustomersController } from "../modules/customers/getAllCustomers/GetAllCustomersController";
+import { GetAllCustomersController } from "../modules/customers/useCases/getAllCustomers/GetAllCustomersController";
 
 const createCustomerController = new CreateCustomerController();
 const getAllCustomersController = new GetAllCustomersController();
