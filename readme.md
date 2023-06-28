@@ -16,10 +16,19 @@ This is a useful site for creating custom payments to send to a creditor. Is pos
 ## How to use?
 
 To get the project:
-**git clone https://github.com/Lucas-2000/payments**
+
+```
+git clone https://github.com/Lucas-2000/payments
+```
 
 To install the dependencies:
-**yarn**
+
+```
+yarn
+```
 
 To execute the project:
-**yarn dev**
+
+```
+yarn dev
+```
