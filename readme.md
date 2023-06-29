@@ -13,6 +13,7 @@ This is a useful site for creating custom payments to send to a creditor. Is pos
   - Prisma ORM;
   - PostgreSQL;
   - JWT Token;
+  - Vitest (unit and integrating)
 
 ## How to use?
 
