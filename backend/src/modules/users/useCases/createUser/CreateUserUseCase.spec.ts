@@ -4,7 +4,7 @@ import { AppError } from "../../../../error/AppError";
 import { CreateUserDTO } from "../../dtos/CreateUserDTO";
 import { prisma } from "../../../../prisma/client";
 
-describe("Create User", () => {
+describe("Create User Use Case", () => {
   let createUserUseCase: CreateUserUseCase;
 
   beforeAll(() => {
