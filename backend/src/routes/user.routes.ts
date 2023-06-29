@@ -21,8 +21,8 @@ const userRoutes = Router();
 userRoutes.post("/", createUserController.handle);
 userRoutes.post("/login", authenticateUserController.handle);
 userRoutes.post("/refresh-token", refreshTokenUserController.handle);
-userRoutes.get("/", ensureAuthenticated, getAllUsersController.handle);
-userRoutes.get("/:email", ensureAuthenticated, getUserByEmailController.handle);
+userRoutes.get("/", getAllUsersController.handle);
+userRoutes.get("/:email", getUserByEmailController.handle);
 userRoutes.put("/:email", ensureAuthenticated, updateUserController.handle);
 userRoutes.delete("/:email", ensureAuthenticated, deleteUserController.handle);
 
