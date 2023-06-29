@@ -6,10 +6,6 @@ export class GetAllCustomersUseCase {
   async execute(): Promise<Customers[]> {
     const customers = await prisma.customers.findMany();
 
-    if (!customers) {
-      throw new AppError("Don't have customers!");
-    }
-
     return customers;
   }
 }
