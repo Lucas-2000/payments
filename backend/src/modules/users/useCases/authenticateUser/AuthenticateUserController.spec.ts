@@ -19,11 +19,6 @@ describe("Authenticate User Controller", () => {
   });
 
   it("should be able to auth a user", async () => {
-    const req = await request(app).post("/users/login").send({
-      email: "testauthcontroller@example.com",
-      password: "test123",
-    });
-
     const response = await request(app).post("/users/login").send({
       email: "testauthcontroller@example.com",
       password: "test123",
@@ -33,11 +28,6 @@ describe("Authenticate User Controller", () => {
   });
 
   it("should not be able to auth a user if email or password is invalid", async () => {
-    const req = await request(app).post("/users/login").send({
-      email: "testauthcontroller1@example.com",
-      password: "test123",
-    });
-
     const response = await request(app).post("/users/login").send({
       email: "testauthcontroller1@example.com",
       password: "test1234",
@@ -47,10 +37,7 @@ describe("Authenticate User Controller", () => {
   });
 
   afterAll(async () => {
-    const usersToDelete = [
-      "testauthcontroller@example.com",
-      "testauthcontroller1@example.com",
-    ];
+    const usersToDelete = ["testauthcontroller@example.com"];
 
     await prisma.user.deleteMany({
       where: {
