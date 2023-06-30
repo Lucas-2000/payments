@@ -3,10 +3,10 @@ import { GenerateRefreshTokenProvider } from "../../../../provider/GenerateRefre
 import { compare } from "bcrypt";
 import { AppError } from "../../../../error/AppError";
 import { prisma } from "../../../../prisma/client";
-import { IAuthUser } from "../../dtos/IAuthUser";
+import { AuthUserDTO } from "../../dtos/AuthUserDTO";
 
 export class AuthenticateUserUseCase {
-  async execute({ email, password }: IAuthUser) {
+  async execute({ email, password }: AuthUserDTO) {
     const userExists = await prisma.user.findUnique({
       where: {
         email,

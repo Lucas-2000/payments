@@ -13,19 +13,19 @@ describe("Update User Controller", () => {
       address: "Street Test",
       city: "São Paulo",
       uf: "SP",
-      email: "test@example.com",
+      email: "testupdate@example.com",
       password: "test123",
     });
   });
 
   it("should be able to update a user", async () => {
     const req = await request(app).post("/users/login").send({
-      email: "test@example.com",
+      email: "testupdate@example.com",
       password: "test123",
     });
 
     const response = await request(app)
-      .put("/users/test@example.com")
+      .put("/users/testupdate@example.com")
       .set("Authorization", `Bearer ${req.body.token}`)
       .send({
         first_name: "John",
@@ -35,7 +35,7 @@ describe("Update User Controller", () => {
         address: "Street Test",
         city: "São Paulo",
         uf: "SP",
-        email: "test@example.com",
+        email: "testupdate@example.com",
         password: "test123",
       });
 
@@ -44,12 +44,12 @@ describe("Update User Controller", () => {
 
   it("should not be able to update a user if email don't exists", async () => {
     const req = await request(app).post("/users/login").send({
-      email: "test@example.com",
+      email: "testupdate@example.com",
       password: "test123",
     });
 
     const response = await request(app)
-      .put("/users/test1@example.com")
+      .put("/users/testupdate1@example.com")
       .set("Authorization", `Bearer ${req.body.token}`)
       .send({
         first_name: "John",
@@ -59,7 +59,7 @@ describe("Update User Controller", () => {
         address: "Street Test",
         city: "São Paulo",
         uf: "SP",
-        email: "test1@example.com",
+        email: "testupdate1@example.com",
         password: "test123",
       });
 
@@ -67,11 +67,7 @@ describe("Update User Controller", () => {
   });
 
   afterAll(async () => {
-    const usersToDelete = [
-      "test@example.com",
-      "test1@example.com",
-      "test2@example.com",
-    ];
+    const usersToDelete = ["testupdate@example.com", "testupdate1@example.com"];
 
     await prisma.user.deleteMany({
       where: {

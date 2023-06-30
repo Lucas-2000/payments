@@ -19,7 +19,7 @@ describe("Update User Use Case", () => {
         address: "Street Test",
         city: "São Paulo",
         uf: "SP",
-        email: "test@example.com",
+        email: "testupdate@example.com",
         password: "test123",
       },
     });
@@ -34,7 +34,7 @@ describe("Update User Use Case", () => {
       address: "Street Test",
       city: "São Paulo",
       uf: "SP",
-      email: "test@example.com",
+      email: "testupdate@example.com",
       password: "test123",
     };
 
@@ -52,7 +52,7 @@ describe("Update User Use Case", () => {
       address: "Street Test",
       city: "São Paulo",
       uf: "SP",
-      email: "test1@example.com",
+      email: "testupdate1@example.com",
       password: "test123",
     };
 
@@ -62,7 +62,7 @@ describe("Update User Use Case", () => {
   });
 
   afterAll(async () => {
-    const usersToDelete = ["test@example.com", "test1@example.com"];
+    const usersToDelete = ["testupdate@example.com", "testupdate1@example.com"];
 
     await prisma.user.deleteMany({
       where: {

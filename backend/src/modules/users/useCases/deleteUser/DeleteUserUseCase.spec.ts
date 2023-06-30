@@ -19,7 +19,7 @@ describe("Update User Use Case", () => {
         address: "Street Test",
         city: "São Paulo",
         uf: "SP",
-        email: "test@example.com",
+        email: "testdelete@example.com",
         password: "test123",
       },
     });
@@ -27,7 +27,7 @@ describe("Update User Use Case", () => {
 
   it("should be able to delete the user", async () => {
     const userData: DeleteUserDTO = {
-      email: "test@example.com",
+      email: "testdelete@example.com",
     };
 
     const user = await deleteUserUseCase.execute(userData);
@@ -37,7 +37,7 @@ describe("Update User Use Case", () => {
 
   it("should not be able to delete the user if email is invalid", async () => {
     const userData: DeleteUserDTO = {
-      email: "test1@example.com",
+      email: "testdelete1@example.com",
     };
 
     await expect(deleteUserUseCase.execute(userData)).rejects.toEqual(

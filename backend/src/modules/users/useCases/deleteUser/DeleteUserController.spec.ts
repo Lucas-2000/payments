@@ -12,19 +12,19 @@ describe("Delete User Controller", () => {
       address: "Street Test",
       city: "São Paulo",
       uf: "SP",
-      email: "test@example.com",
+      email: "testdelete@example.com",
       password: "test123",
     });
   });
 
   it("should be able to delete a user", async () => {
     const req = await request(app).post("/users/login").send({
-      email: "test@example.com",
+      email: "testdelete@example.com",
       password: "test123",
     });
 
     const response = await request(app)
-      .delete("/users/test@example.com")
+      .delete("/users/testdelete@example.com")
       .set("Authorization", `Bearer ${req.body.token}`);
 
     expect(response.status).toBe(201);
@@ -32,12 +32,12 @@ describe("Delete User Controller", () => {
 
   it("should not be able to delete a user if email don't exists", async () => {
     const req = await request(app).post("/users/login").send({
-      email: "test@example.com",
+      email: "testdelete@example.com",
       password: "test123",
     });
 
     const response = await request(app)
-      .delete("/users/test1@example.com")
+      .delete("/users/testdelete1@example.com")
       .set("Authorization", `Bearer ${req.body.token}`);
 
     expect(response.status).toBe(500);
