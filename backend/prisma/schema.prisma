@@ -68,7 +68,7 @@ model Invoices {
 
   user       User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String?
-  customers  Customers? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  customers  Customers? @relation(fields: [customerId], references: [id], onDelete: Cascade)
   customerId String?
 
   @@map("invoices")
