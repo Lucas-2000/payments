@@ -12,13 +12,11 @@ describe("Refresh Token User Use Case", () => {
   let createUserUseCase: CreateUserUseCase;
   let refreshTokenUserUseCase: RefreshTokenUserUseCase;
 
-  beforeAll(() => {
+  beforeAll(async () => {
     authenticateUserUseCase = new AuthenticateUserUseCase();
     createUserUseCase = new CreateUserUseCase();
     refreshTokenUserUseCase = new RefreshTokenUserUseCase();
-  });
 
-  it("should be able to get the refresh token", async () => {
     const userData: CreateUserDTO = {
       first_name: "John",
       last_name: "Doe",
@@ -32,7 +30,9 @@ describe("Refresh Token User Use Case", () => {
     };
 
     await createUserUseCase.execute(userData);
+  });
 
+  it("should be able to get the refresh token", async () => {
     const userDataAuth: AuthUserDTO = {
       email: "testrefreshtoken@example.com",
       password: "test123",
@@ -48,20 +48,6 @@ describe("Refresh Token User Use Case", () => {
   });
 
   it("should not be able to get the refresh token if the refresh token is invalid", async () => {
-    const userData: CreateUserDTO = {
-      first_name: "John",
-      last_name: "Doe",
-      birth_date: "2000-01-01",
-      cep: "09874123",
-      address: "Street Test",
-      city: "São Paulo",
-      uf: "SP",
-      email: "testrefreshtoken2@example.com",
-      password: "test123",
-    };
-
-    await createUserUseCase.execute(userData);
-
     const userDataAuth: AuthUserDTO = {
       email: "testrefreshtoken2@example.com",
       password: "test123",
@@ -75,10 +61,7 @@ describe("Refresh Token User Use Case", () => {
   });
 
   afterAll(async () => {
-    const usersToDelete = [
-      "testrefreshtoken@example.com",
-      "testerefreshtoken2@example.com",
-    ];
+    const usersToDelete = ["testrefreshtoken@example.com"];
 
     await prisma.user.deleteMany({
       where: {
