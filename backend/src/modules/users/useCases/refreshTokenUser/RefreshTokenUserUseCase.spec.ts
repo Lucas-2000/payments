@@ -49,7 +49,7 @@ describe("Refresh Token User Use Case", () => {
 
   it("should not be able to get the refresh token if the refresh token is invalid", async () => {
     const userDataAuth: AuthUserDTO = {
-      email: "testrefreshtoken2@example.com",
+      email: "testrefreshtoken@example.com",
       password: "test123",
     };
 
