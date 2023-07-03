@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
-import { CreateInvoiceController } from "../modules/invoices/useCases/createInvoices/CreateInvoiceController";
+import { CreateInvoiceController } from "../modules/invoices/useCases/CreateInvoices/CreateInvoiceController";
 import { DeleteInvoiceController } from "../modules/invoices/useCases/deleteInvoice/DeleteInvoiceController";
 import { GetAllInvoicesController } from "../modules/invoices/useCases/getAllInvoices/GetAllInvoicesController";
 import { GetInvoicesByIdController } from "../modules/invoices/useCases/getInvoicesById/GetInvoicesByIdController";
