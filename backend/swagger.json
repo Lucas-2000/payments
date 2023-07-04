@@ -1,0 +1,430 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Invoices remember API",
+    "description": "This API is used to CRUD users, customer and invoices",
+    "contact": {
+      "name": "Support",
+      "email": "lucasmarchesoni620@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "paths": {
+    "tag": ["Users"],
+    "/users": {
+      "post": {
+        "description": "Create a new user",
+        "requestBody": {
+          "description": "Information required to create a user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUser"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "User not created"
+          }
+        }
+      },
+      "get": {
+        "description": "Get all users",
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResponseUser"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{email}": {
+      "get": {
+        "description": "Get user by email",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "Email of the user",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Get user by email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUser"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "User not exists!"
+          }
+        }
+      },
+      "put": {
+        "description": "Update user",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "Email of the user",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "requestBody": {
+          "description": "Information required to update a user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestUser"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUser"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "User not exists!"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete user",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "Email of the user",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "requestBody": {
+          "description": "Information required to delete a user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestUser"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUser"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "User not exists!"
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "description": "Login",
+        "requestBody": {
+          "description": "Login to the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestLogin"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseLogin"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "User or password incorrect!"
+          }
+        }
+      }
+    },
+    "/users/refresh-token": {
+      "post": {
+        "description": "Refresh Token",
+        "requestBody": {
+          "description": "Update refresh token",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestRefreshToken"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "New token created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseRefreshToken"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Invalid Refresh Token!"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RequestUser": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "description": "First name of the user",
+            "example": "John"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "Last name of the user",
+            "example": "Doe"
+          },
+          "birth_date": {
+            "type": "string",
+            "description": "Birth date name of the user",
+            "example": "2000-01-01"
+          },
+          "cep": {
+            "type": "string",
+            "description": "Cep of the user",
+            "example": "00000000"
+          },
+          "address": {
+            "type": "string",
+            "description": "Address of the user",
+            "example": "Street Example"
+          },
+          "city": {
+            "type": "string",
+            "description": "City of the user",
+            "example": "São Paulo"
+          },
+          "uf": {
+            "type": "string",
+            "description": "UF of the user",
+            "example": "SP"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email of the user",
+            "example": "johndoe@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "Password of the user",
+            "example": "test123"
+          }
+        }
+      },
+      "ResponseUser": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "description": "First name of the user",
+            "example": "John"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "Last name of the user",
+            "example": "Doe"
+          },
+          "birth_date": {
+            "type": "string",
+            "description": "Birth date name of the user",
+            "example": "2000-01-01"
+          },
+          "cep": {
+            "type": "string",
+            "description": "Cep of the user",
+            "example": "00000000"
+          },
+          "address": {
+            "type": "string",
+            "description": "Address of the user",
+            "example": "Street Example"
+          },
+          "city": {
+            "type": "string",
+            "description": "City of the user",
+            "example": "São Paulo"
+          },
+          "uf": {
+            "type": "string",
+            "description": "UF of the user",
+            "example": "SP"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email of the user",
+            "example": "johndoe@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "Password of the user",
+            "example": "test123"
+          },
+          "id": {
+            "type": "string",
+            "description": "Id of the user",
+            "format": "uuid"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "Creation datetime of the user",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "Update datetime of the user",
+            "format": "date-time"
+          }
+        }
+      },
+      "RequestLogin": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email of the user",
+            "example": "johndoe@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "Password of the user",
+            "example": "test123"
+          }
+        }
+      },
+      "ResponseLogin": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Token",
+            "example": "asfisahfisafoafsjisfa"
+          },
+          "refreshToken": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Id of the refresh token",
+                "example": "f9a3d9a3-fa60-4fdb-8753-d96ab18aa66f"
+              },
+              "expiresIn": {
+                "type": "string",
+                "description": "Time to expires the refresh token",
+                "example": "1688492862"
+              },
+              "userId": {
+                "type": "string",
+                "description": "Id of the refresh token",
+                "example": "12739832-0484-4fb5-8314-744a16ca85b1"
+              }
+            }
+          }
+        }
+      },
+      "RequestRefreshToken": {
+        "type": "object",
+        "properties": {
+          "refresh_token": {
+            "type": "string",
+            "description": "Id of the refresh token",
+            "example": "f9a3d9a3-fa60-4fdb-8753-d96ab18aa66f"
+          }
+        }
+      },
+      "ResponseRefreshToken": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Id of the refresh token",
+            "example": "asfisahfisafoafsjisfa"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "description": "JWT Token authentication",
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
