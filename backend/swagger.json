@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Invoices remember API",
-    "description": "This API is used to CRUD users, customer and invoices",
+    "description": "This API could be used to CRUD users, customer and invoices",
     "contact": {
       "name": "Support",
       "email": "lucasmarchesoni620@gmail.com"
@@ -160,16 +160,6 @@
             "format": "string"
           }
         ],
-        "requestBody": {
-          "description": "Information required to delete a user",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestUser"
-              }
-            }
-          }
-        },
         "security": [
           {
             "bearerAuth": []
@@ -426,6 +416,179 @@
           }
         }
       }
+    },
+    "/invoices": {
+      "post": {
+        "tags": ["invoices"],
+        "description": "Create a new invoice",
+        "requestBody": {
+          "description": "Information required to create a invoice",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestInvoice"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Invoice created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseInvoice"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Invoice not created"
+          }
+        }
+      },
+      "get": {
+        "tags": ["invoices"],
+        "description": "Get all invoices",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResponseInvoice"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/invoices/{id}": {
+      "get": {
+        "tags": ["invoices"],
+        "description": "Get invoice by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of the invoice",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Get invoice by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseInvoice"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Invoice not exists!"
+          }
+        }
+      },
+      "put": {
+        "tags": ["invoices"],
+        "description": "Update invoice",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of the invoice",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "requestBody": {
+          "description": "Information required to update a invoice",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestInvoice"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Update invoice",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseInvoice"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Invoice not found!"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["invoices"],
+        "description": "Delete invoice",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of the invoice",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Delete invoice",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseInvoice"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Invoice not exists!"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -663,6 +826,11 @@
       "ResponseCustomer": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string",
+            "description": "Id of the customer",
+            "format": "uuid"
+          },
           "first_name": {
             "type": "string",
             "description": "First name of the customer",
@@ -708,19 +876,104 @@
             "description": "Id of the user",
             "example": "f9a3d9a3-fa60-4fdb-8753-d96ab18aa66f"
           },
-          "id": {
-            "type": "string",
-            "description": "Id of the customer",
-            "format": "uuid"
-          },
           "created_at": {
             "type": "string",
-            "description": "Creation datetime of the user",
+            "description": "Creation datetime of the customer",
             "format": "date-time"
           },
           "updated_at": {
             "type": "string",
-            "description": "Update datetime of the user",
+            "description": "Update datetime of the customer",
+            "format": "date-time"
+          }
+        }
+      },
+      "RequestInvoice": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Description of the invoice",
+            "example": "example"
+          },
+          "value": {
+            "type": "number",
+            "description": "Value of the invoice",
+            "example": 50
+          },
+          "payment_method": {
+            "type": "string",
+            "description": "Method of payment",
+            "example": "PIX"
+          },
+          "due_date": {
+            "type": "string",
+            "description": "Due date of payment",
+            "example": "PIX"
+          },
+          "is_paid": {
+            "type": "boolean",
+            "description": "Is paid or no",
+            "example": true
+          },
+          "userId": {
+            "type": "string",
+            "description": "Id of the user",
+            "example": "f9a3d9a3-fa60-4fdb-8753-d96ab18aa66f"
+          },
+          "customerId": {
+            "type": "string",
+            "description": "Id of the customer",
+            "example": "f9a3d9a3-fa60-4fdb-8753-d96ab18aa66f"
+          }
+        }
+      },
+      "ResponseInvoice": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Description of the invoice",
+            "example": "example"
+          },
+          "value": {
+            "type": "number",
+            "description": "Value of the invoice",
+            "example": 50
+          },
+          "payment_method": {
+            "type": "string",
+            "description": "Method of payment",
+            "example": "PIX"
+          },
+          "due_date": {
+            "type": "string",
+            "description": "Due date of payment",
+            "example": "PIX"
+          },
+          "is_paid": {
+            "type": "boolean",
+            "description": "Is paid or no",
+            "example": true
+          },
+          "userId": {
+            "type": "string",
+            "description": "Id of the user",
+            "example": "f9a3d9a3-fa60-4fdb-8753-d96ab18aa66f"
+          },
+          "customerId": {
+            "type": "string",
+            "description": "Id of the customer",
+            "example": "f9a3d9a3-fa60-4fdb-8753-d96ab18aa66f"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "Creation datetime of the invoice",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "Update datetime of the invoice",
             "format": "date-time"
           }
         }
