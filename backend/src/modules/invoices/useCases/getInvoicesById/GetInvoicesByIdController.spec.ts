@@ -3,7 +3,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { app } from "../../../../app";
 import { prisma } from "../../../../prisma/client";
 
-describe("Get Customer by id controller", () => {
+describe("Get Invoices by id controller", () => {
   beforeAll(async () => {
     await request(app).post("/users").send({
       first_name: "John",
@@ -13,18 +13,18 @@ describe("Get Customer by id controller", () => {
       address: "Street Test",
       city: "São Paulo",
       uf: "SP",
-      email: "testintegrationgetcustomerbyid@example.com",
+      email: "testintegrationgetinvoicebyid@example.com",
       password: "test123",
     });
   });
 
-  it("should be able to get the customer by id", async () => {
+  it("should be able to get the invoice by id", async () => {
     const user = await request(app).get(
-      "/users/testintegrationgetcustomerbyid@example.com"
+      "/users/testintegrationgetinvoicebyid@example.com"
     );
 
     const req = await request(app).post("/users/login").send({
-      email: "testintegrationgetcustomerbyid@example.com",
+      email: "testintegrationgetinvoicebyid@example.com",
       password: "test123",
     });
 
@@ -43,20 +43,33 @@ describe("Get Customer by id controller", () => {
         userId: user.body.id,
       });
 
+    const invoice = await request(app)
+      .post("/invoices/")
+      .set("Authorization", `Bearer ${req.body.token}`)
+      .send({
+        description: "Test Invoice",
+        value: 1,
+        payment_method: "PIX",
+        due_date: "2023-09-01",
+        is_paid: false,
+        userId: user.body.id,
+        customerId: customer.body.id,
+      });
+
     const response = await request(app)
-      .get(`/customers/${customer.body.id}`)
+      .get(`/invoices/${invoice.body.id}`)
       .set("Authorization", `Bearer ${req.body.token}`);
 
     expect(response.status).toBe(201);
   });
 
-  it("should not be able to get the customer by id if customer don't exists", async () => {
+  it("should not be able to get the invoice by id if invoice not found", async () => {
     const user = await request(app).get(
-      "/users/testintegrationgetcustomerbyid@example.com"
+      "/users/testintegrationgetinvoicebyid@example.com"
     );
 
     const req = await request(app).post("/users/login").send({
-      email: "testintegrationgetcustomerbyid@example.com",
+      email: "testintegrationgetinvoicebyid@example.com",
       password: "test123",
     });
 
@@ -72,18 +85,31 @@ describe("Get Customer by id controller", () => {
         uf: "SP",
         email: "testintegrationgetcustomerbyid@example.com",
         phone: "11911111111",
-        userId: "user.body.id",
+        userId: user.body.id,
+      });
+
+    const invoice = await request(app)
+      .post("/invoices/")
+      .set("Authorization", `Bearer ${req.body.token}`)
+      .send({
+        description: "Test Invoice",
+        value: 1,
+        payment_method: "PIX",
+        due_date: "2023-09-01",
+        is_paid: false,
+        userId: user.body.id,
+        customerId: customer.body.id,
       });
 
     const response = await request(app)
-      .get(`/customers/${customer.body.id}`)
+      .get(`/invoices/${"invoice.body.id"}`)
       .set("Authorization", `Bearer ${req.body.token}`);
 
     expect(response.status).toBe(500);
   });
 
   afterAll(async () => {
-    const usersToDelete = ["testintegrationgetcustomerbyid@example.com"];
+    const usersToDelete = ["testintegrationgetinvoicebyid@example.com"];
 
     await prisma.user.deleteMany({
       where: {

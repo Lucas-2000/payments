@@ -47,21 +47,21 @@ describe("Get Customer by id Use Case", () => {
   });
 
   it("should be able to get the customer by id", async () => {
-    const userData: GetCustomerByIdDTO = {
+    const customerData: GetCustomerByIdDTO = {
       id: customer.id,
     };
 
-    const user = await getCustomerByIdUseCase.execute(userData);
+    const getCustomer = await getCustomerByIdUseCase.execute(customerData);
 
-    expect(user).length > 0;
+    expect(getCustomer).length > 0;
   });
 
   it("should not be able to get the customer by id if customer don't exists", async () => {
-    const userData: GetCustomerByIdDTO = {
+    const customerData: GetCustomerByIdDTO = {
       id: "customer.id",
     };
 
-    await expect(getCustomerByIdUseCase.execute(userData)).rejects.toEqual(
+    await expect(getCustomerByIdUseCase.execute(customerData)).rejects.toEqual(
       new AppError("Customer not found!")
     );
   });
