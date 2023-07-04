@@ -34,3 +34,11 @@ To execute the project:
 ```
 yarn dev
 ```
+
+To check the api documentation:
+
+```
+http://localhost:3333/api-docs
+http://localhost:3333/swagger
+http://localhost:3333/docs
+```
