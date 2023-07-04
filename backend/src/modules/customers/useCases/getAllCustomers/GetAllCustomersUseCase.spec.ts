@@ -9,8 +9,8 @@ describe("Get All Customers Use Case", () => {
   });
 
   it("should be able to get all customers", async () => {
-    const user = await getAllCustomersUseCase.execute();
+    const customer = await getAllCustomersUseCase.execute();
 
-    expect(user).length > 0;
+    expect(customer).length > 0;
   });
 });
