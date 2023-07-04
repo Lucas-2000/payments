@@ -9,10 +9,24 @@
     },
     "version": "1.0.0"
   },
+  "tags": [
+    {
+      "name": "users",
+      "description": "User Routes"
+    },
+    {
+      "name": "customers",
+      "description": "Customer Routes"
+    },
+    {
+      "name": "invoices",
+      "description": "Invoice Routes"
+    }
+  ],
   "paths": {
-    "tag": ["Users"],
     "/users": {
       "post": {
+        "tags": ["users"],
         "description": "Create a new user",
         "requestBody": {
           "description": "Information required to create a user",
@@ -41,6 +55,7 @@
         }
       },
       "get": {
+        "tags": ["users"],
         "description": "Get all users",
         "responses": {
           "201": {
@@ -60,6 +75,7 @@
     },
     "/users/{email}": {
       "get": {
+        "tags": ["users"],
         "description": "Get user by email",
         "parameters": [
           {
@@ -88,6 +104,7 @@
         }
       },
       "put": {
+        "tags": ["users"],
         "description": "Update user",
         "parameters": [
           {
@@ -131,6 +148,7 @@
         }
       },
       "delete": {
+        "tags": ["users"],
         "description": "Delete user",
         "parameters": [
           {
@@ -176,6 +194,7 @@
     },
     "/users/login": {
       "post": {
+        "tags": ["users"],
         "description": "Login",
         "requestBody": {
           "description": "Login to the system",
@@ -189,7 +208,7 @@
         },
         "responses": {
           "201": {
-            "description": "Login successful",
+            "description": "Customer created successful",
             "content": {
               "application/json": {
                 "schema": {
@@ -206,6 +225,7 @@
     },
     "/users/refresh-token": {
       "post": {
+        "tags": ["users"],
         "description": "Refresh Token",
         "requestBody": {
           "description": "Update refresh token",
@@ -230,6 +250,179 @@
           },
           "500": {
             "description": "Invalid Refresh Token!"
+          }
+        }
+      }
+    },
+    "/customers": {
+      "post": {
+        "tags": ["customers"],
+        "description": "Create a new customer",
+        "requestBody": {
+          "description": "Information required to create a customer",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestCustomer"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Customer created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseCustomer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Customer not created"
+          }
+        }
+      },
+      "get": {
+        "tags": ["customers"],
+        "description": "Get all customers",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResponseCustomer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers/{id}": {
+      "get": {
+        "tags": ["customers"],
+        "description": "Get customer by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of the customer",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Get customer by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseCustomer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Customer not exists!"
+          }
+        }
+      },
+      "put": {
+        "tags": ["customers"],
+        "description": "Update customer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of the customer",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "requestBody": {
+          "description": "Information required to update a customer",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestCustomer"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Update Customer",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseCustomer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Customer not found!"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["customers"],
+        "description": "Delete customer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of the customer",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Delete customer",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseCustomer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Customer not exists!"
           }
         }
       }
@@ -414,6 +607,121 @@
             "type": "string",
             "description": "Id of the refresh token",
             "example": "asfisahfisafoafsjisfa"
+          }
+        }
+      },
+      "RequestCustomer": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "description": "First name of the customer",
+            "example": "John"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "Last name of the customer",
+            "example": "Doe"
+          },
+          "cep": {
+            "type": "string",
+            "description": "Cep of the customer",
+            "example": "00000000"
+          },
+          "address": {
+            "type": "string",
+            "description": "Address of the customer",
+            "example": "Street Example"
+          },
+          "city": {
+            "type": "string",
+            "description": "City of the customer",
+            "example": "São Paulo"
+          },
+          "uf": {
+            "type": "string",
+            "description": "UF of the customer",
+            "example": "SP"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email of the customer",
+            "example": "johndoe@example.com"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone of the customer",
+            "example": "11911111111"
+          },
+          "userId": {
+            "type": "string",
+            "description": "Id of the user",
+            "example": "f9a3d9a3-fa60-4fdb-8753-d96ab18aa66f"
+          }
+        }
+      },
+      "ResponseCustomer": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "description": "First name of the customer",
+            "example": "John"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "Last name of the customer",
+            "example": "Doe"
+          },
+          "cep": {
+            "type": "string",
+            "description": "Cep of the customer",
+            "example": "00000000"
+          },
+          "address": {
+            "type": "string",
+            "description": "Address of the customer",
+            "example": "Street Example"
+          },
+          "city": {
+            "type": "string",
+            "description": "City of the customer",
+            "example": "São Paulo"
+          },
+          "uf": {
+            "type": "string",
+            "description": "UF of the customer",
+            "example": "SP"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email of the customer",
+            "example": "johndoe@example.com"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone of the customer",
+            "example": "11911111111"
+          },
+          "userId": {
+            "type": "string",
+            "description": "Id of the user",
+            "example": "f9a3d9a3-fa60-4fdb-8753-d96ab18aa66f"
+          },
+          "id": {
+            "type": "string",
+            "description": "Id of the customer",
+            "format": "uuid"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "Creation datetime of the user",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "Update datetime of the user",
+            "format": "date-time"
           }
         }
       }
