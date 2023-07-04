@@ -641,7 +641,18 @@
             "description": "Password of the user",
             "example": "test123"
           }
-        }
+        },
+        "required": [
+          "first_name",
+          "last_name",
+          "birth_date",
+          "cep",
+          "address",
+          "city",
+          "uf",
+          "email",
+          "password"
+        ]
       },
       "ResponseUser": {
         "type": "object",
@@ -721,7 +732,8 @@
             "description": "Password of the user",
             "example": "test123"
           }
-        }
+        },
+        "required": ["email", "password"]
       },
       "ResponseLogin": {
         "type": "object",
@@ -761,7 +773,8 @@
             "description": "Id of the refresh token",
             "example": "f9a3d9a3-fa60-4fdb-8753-d96ab18aa66f"
           }
-        }
+        },
+        "required": ["refresh_token"]
       },
       "ResponseRefreshToken": {
         "type": "object",
@@ -821,7 +834,19 @@
             "description": "Id of the user",
             "example": "f9a3d9a3-fa60-4fdb-8753-d96ab18aa66f"
           }
-        }
+        },
+        "required": [
+          "first_name",
+          "last_name",
+          "birth_date",
+          "cep",
+          "address",
+          "city",
+          "uf",
+          "email",
+          "phone",
+          "userId"
+        ]
       },
       "ResponseCustomer": {
         "type": "object",
@@ -926,7 +951,16 @@
             "description": "Id of the customer",
             "example": "f9a3d9a3-fa60-4fdb-8753-d96ab18aa66f"
           }
-        }
+        },
+        "required": [
+          "description",
+          "value",
+          "payment_method",
+          "due_date",
+          "is_paid",
+          "userId",
+          "customerId"
+        ]
       },
       "ResponseInvoice": {
         "type": "object",
