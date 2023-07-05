@@ -4,10 +4,8 @@ export const Login = () => {
   return (
     <div className="flex items-center justify-center h-screen">
       <div>
+        <h1 className="text-2xl font-serif font-bold antialiased p-1">Login</h1>
         <form className="w-96">
-          <h1 className="text-2xl font-serif font-bold antialiased p-1">
-            Login
-          </h1>
           <label className="block mt-8 font-sans antialiased p-1">Email</label>
           <input
             className="block bg-slate-200 w-full border-2 border-slate-400 rounded p-2 focus:outline-none focus:border-indigo-500"
