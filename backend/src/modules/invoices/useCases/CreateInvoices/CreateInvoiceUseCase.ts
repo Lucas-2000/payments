@@ -33,18 +33,22 @@ export class CreateInvoiceUseCase {
       throw new AppError("Customer not found!");
     }
 
-    const invoice = await prisma.invoices.create({
-      data: {
-        description,
-        value,
-        payment_method,
-        due_date,
-        is_paid,
-        userId,
-        customerId,
-      },
-    });
+    try {
+      const invoice = await prisma.invoices.create({
+        data: {
+          description,
+          value,
+          payment_method,
+          due_date,
+          is_paid,
+          userId,
+          customerId,
+        },
+      });
 
-    return invoice;
+      return invoice;
+    } catch (err) {
+      throw new AppError("Missing fields");
+    }
   }
 }

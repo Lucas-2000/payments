@@ -20,19 +20,23 @@ export class UpdateInvoiceUseCase {
       throw new AppError("Invoice not found!");
     }
 
-    const invoice = await prisma.invoices.update({
-      where: {
-        id,
-      },
-      data: {
-        description,
-        value,
-        payment_method,
-        due_date,
-        is_paid,
-      },
-    });
+    try {
+      const invoice = await prisma.invoices.update({
+        where: {
+          id,
+        },
+        data: {
+          description,
+          value,
+          payment_method,
+          due_date,
+          is_paid,
+        },
+      });
 
-    return invoice;
+      return invoice;
+    } catch (err) {
+      throw new AppError("Missing fields");
+    }
   }
 }
