@@ -762,6 +762,71 @@
                 "example": "12739832-0484-4fb5-8314-744a16ca85b1"
               }
             }
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "first_name": {
+                "type": "string",
+                "description": "First name of the user",
+                "example": "John"
+              },
+              "last_name": {
+                "type": "string",
+                "description": "Last name of the user",
+                "example": "Doe"
+              },
+              "birth_date": {
+                "type": "string",
+                "description": "Birth date name of the user",
+                "example": "2000-01-01"
+              },
+              "cep": {
+                "type": "string",
+                "description": "Cep of the user",
+                "example": "00000000"
+              },
+              "address": {
+                "type": "string",
+                "description": "Address of the user",
+                "example": "Street Example"
+              },
+              "city": {
+                "type": "string",
+                "description": "City of the user",
+                "example": "São Paulo"
+              },
+              "uf": {
+                "type": "string",
+                "description": "UF of the user",
+                "example": "SP"
+              },
+              "email": {
+                "type": "string",
+                "description": "Email of the user",
+                "example": "johndoe@example.com"
+              },
+              "password": {
+                "type": "string",
+                "description": "Password of the user",
+                "example": "test123"
+              },
+              "id": {
+                "type": "string",
+                "description": "Id of the user",
+                "format": "uuid"
+              },
+              "created_at": {
+                "type": "string",
+                "description": "Creation datetime of the user",
+                "format": "date-time"
+              },
+              "updated_at": {
+                "type": "string",
+                "description": "Update datetime of the user",
+                "format": "date-time"
+              }
+            }
           }
         }
       },
