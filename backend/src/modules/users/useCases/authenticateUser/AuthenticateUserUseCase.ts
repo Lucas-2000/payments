@@ -11,36 +11,34 @@ export class AuthenticateUserUseCase {
       throw new AppError("Error on auth");
     }
 
-    const userExists = await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         email,
       },
     });
 
-    if (!userExists) {
+    if (!user) {
       throw new AppError("User or password incorrect!");
     }
 
-    const passwordMatch = await compare(password, userExists.password);
+    const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
       throw new AppError("User or password incorrect!");
     }
 
     const generateTokenProvider = new GenerateTokenProvider();
-    const token = await generateTokenProvider.execute(userExists.id);
+    const token = await generateTokenProvider.execute(user.id);
 
     await prisma.refreshToken.deleteMany({
       where: {
-        userId: userExists.id,
+        userId: user.id,
       },
     });
 
     const generateRefreshTokenProvider = new GenerateRefreshTokenProvider();
-    const refreshToken = await generateRefreshTokenProvider.execute(
-      userExists.id
-    );
+    const refreshToken = await generateRefreshTokenProvider.execute(user.id);
 
-    return { token, refreshToken };
+    return { token, refreshToken, user };
   }
 }

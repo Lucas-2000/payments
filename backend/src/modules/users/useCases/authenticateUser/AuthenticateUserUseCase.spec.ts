@@ -42,6 +42,7 @@ describe("Authenticate User Use Case", () => {
 
     expect(userAuth).toHaveProperty("token");
     expect(userAuth).toHaveProperty("refreshToken");
+    expect(userAuth).toHaveProperty("user");
   });
 
   it("should not be able to auth user if email or password is incorret", async () => {
