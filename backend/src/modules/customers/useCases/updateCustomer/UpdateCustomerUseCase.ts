@@ -25,22 +25,26 @@ export class UpdateCustomerUseCase {
       throw new AppError("Customer not found!");
     }
 
-    const customerUpdated = await prisma.customers.update({
-      where: {
-        id,
-      },
-      data: {
-        first_name,
-        last_name,
-        cep,
-        address,
-        city,
-        uf,
-        email,
-        phone,
-      },
-    });
+    try {
+      const customerUpdated = await prisma.customers.update({
+        where: {
+          id,
+        },
+        data: {
+          first_name,
+          last_name,
+          cep,
+          address,
+          city,
+          uf,
+          email,
+          phone,
+        },
+      });
 
-    return customerUpdated;
+      return customerUpdated;
+    } catch (err) {
+      throw new AppError("Missing fields");
+    }
   }
 }

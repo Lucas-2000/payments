@@ -25,20 +25,23 @@ export class CreateCustomerUseCase {
       throw new AppError("User not exists!");
     }
 
-    const customer = await prisma.customers.create({
-      data: {
-        first_name,
-        last_name,
-        cep,
-        address,
-        city,
-        uf,
-        email,
-        phone,
-        userId,
-      },
-    });
-
-    return customer;
+    try {
+      const customer = await prisma.customers.create({
+        data: {
+          first_name,
+          last_name,
+          cep,
+          address,
+          city,
+          uf,
+          email,
+          phone,
+          userId,
+        },
+      });
+      return customer;
+    } catch (err) {
+      throw new AppError("Missing fields");
+    }
   }
 }
