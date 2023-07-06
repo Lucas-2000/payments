@@ -2,18 +2,18 @@
 
 ## What is the project?
 
-This is a useful site for creating custom payments to send to a creditor. Is possible, create a account, edit your account, register a customer, create custom payments, generate links to do the payments on the plataform or external plataforms, the payments can be send by sms/email too, check if the email has been read, schedule a payment.
+This is a API for creating custom payments/invoices to send to a creditor. Is possible create a user (contains auth token and refresh token), create a customer and create invoices to send to this customers.
 
 ## Tecnologies
 
-- Backend:
-  - Node.js;
-  - Typescript;
-  - Express;
-  - Prisma ORM;
-  - PostgreSQL;
-  - JWT Token;
-  - Vitest (unit and integrating)
+- Node.js;
+- Typescript;
+- Express;
+- Prisma ORM;
+- PostgreSQL;
+- JWT Token;
+- Vitest (unit and integrating)
+- Swagger
 
 ## How to use?
 
