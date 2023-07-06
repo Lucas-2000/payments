@@ -48,7 +48,7 @@ export class UpdateUserUseCase {
 
       return user;
     } catch (err) {
-      throw new AppError("Error on update");
+      throw new AppError("Missing fields");
     }
   }
 }

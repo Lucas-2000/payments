@@ -8,7 +8,7 @@ import { AuthUserDTO } from "../../dtos/AuthUserDTO";
 export class AuthenticateUserUseCase {
   async execute({ email, password }: AuthUserDTO) {
     if (!email || !password) {
-      throw new AppError("Error on auth");
+      throw new AppError("Missing fields");
     }
 
     const user = await prisma.user.findUnique({

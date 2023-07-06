@@ -43,7 +43,7 @@ export class CreateUserUseCase {
       });
       return user;
     } catch (err) {
-      throw new AppError("Error on create");
+      throw new AppError("Missing fields");
     }
   }
 }
