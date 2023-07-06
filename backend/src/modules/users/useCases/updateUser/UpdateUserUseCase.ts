@@ -31,20 +31,24 @@ export class UpdateUserUseCase {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
 
-    const user = await prisma.user.update({
-      where: { email },
-      data: {
-        first_name,
-        last_name,
-        birth_date,
-        cep,
-        address,
-        city,
-        uf,
-        password: hash,
-      },
-    });
+    try {
+      const user = await prisma.user.update({
+        where: { email },
+        data: {
+          first_name,
+          last_name,
+          birth_date,
+          cep,
+          address,
+          city,
+          uf,
+          password: hash,
+        },
+      });
 
-    return user;
+      return user;
+    } catch (err) {
+      throw new AppError("Error on update");
+    }
   }
 }

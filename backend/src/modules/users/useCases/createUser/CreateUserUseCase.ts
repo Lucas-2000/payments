@@ -27,20 +27,23 @@ export class CreateUserUseCase {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
 
-    const user = await prisma.user.create({
-      data: {
-        first_name,
-        last_name,
-        birth_date,
-        cep,
-        address,
-        city,
-        uf,
-        email,
-        password: hash,
-      },
-    });
-
-    return user;
+    try {
+      const user = await prisma.user.create({
+        data: {
+          first_name,
+          last_name,
+          birth_date,
+          cep,
+          address,
+          city,
+          uf,
+          email,
+          password: hash,
+        },
+      });
+      return user;
+    } catch (err) {
+      throw new AppError("Error on create");
+    }
   }
 }
