@@ -2,7 +2,7 @@
 
 ## What is the project?
 
-This is a API for creating custom payments/invoices to send to a creditor. Is possible create a user (contains auth token and refresh token), create a customer and create invoices to send to this customers.
+This is a API for creating custom payments/invoices to send to a creditor. Is possible crud a user (contains auth token and refresh token), crud a customer and crud invoices to send to this customers.
 
 ## Tecnologies
 
@@ -35,10 +35,10 @@ To execute the project:
 yarn dev
 ```
 
-To check the api documentation:
+To check the api documentation on routes:
 
 ```
-http://localhost:3333/api-docs
-http://localhost:3333/swagger
-http://localhost:3333/docs
+/api-docs
+/swagger
+/docs
 ```
